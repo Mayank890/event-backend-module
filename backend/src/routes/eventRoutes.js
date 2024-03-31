@@ -234,4 +234,31 @@ router.put("/update-status/:id", async (req, res) => {
   }
 });
 
+router.get("/fetch-event", async (req, res) => {
+  const { eventTitle } = req.query;
+
+  try {
+    // Assuming you have an Event model
+    const events = await Event.find({
+      event_name: { $regex: new RegExp(eventTitle, "i") },
+    });
+
+    if (events.length > 0) {
+      const eventData = events.map((event) => ({
+        title: event.event_name,
+        id: event._id,
+        // Add other properties as needed
+      }));
+      res.send(eventData);
+    } else {
+      res
+        .status(404)
+        .send({ message: "No events found with the provided search term" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;

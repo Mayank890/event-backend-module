@@ -336,7 +336,6 @@ const CreateEvent = () => {
             placeholder="Your description here"
             value={formData.description}
             onChange={handleChange}
-            defaultValue={""}
             required
           />
         </div>

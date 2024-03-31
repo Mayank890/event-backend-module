@@ -11,6 +11,7 @@ router.get("/allusers", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //fetch user details by id
 router.get("/:id", async (req, res) => {
   try {
@@ -20,17 +21,20 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 //update user details by id
 router.put("/user/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { user_name, user_email, user_password, isuservendor } = req.body;
-    user.user_name = user_name;
-    user.user_email = user_email;
-    user.user_password = user_password;
+    user.user_name = user_name || user.user_name;
+    user.user_email = user_email || user.user_email;
+    user.user_password = user_password || user.user_password;
     user.isuservendor = isuservendor;
-    await user.save();
-    res.json(user);
+    const updatedUser = await user.save();
+
+    // Send updated user data in response
+    res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

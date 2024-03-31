@@ -8,6 +8,7 @@ import CreateEvent from "./CreateEvent";
 import { useNavigate } from "react-router-dom";
 import logoimg from "../assets/logo_event.jpeg";
 import UpdateEvent from "./UpdateEvent";
+import Bookings from "../pages/Bookings";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -292,6 +293,7 @@ const Sidebar = () => {
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/events/bookings/:id" element={<Bookings />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/users" element={<Users />} />
             <Route path="/create-event" element={<CreateEvent />} />
